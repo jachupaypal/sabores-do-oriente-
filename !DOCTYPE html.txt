@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sabores do Oriente</title>
+<style>
+body {margin:0;font-family:Arial;background:#fff8f0}
+header {background:#8b5e3c;color:white;text-align:center;padding:20px}
+nav {background:#d4a373;padding:10px;text-align:center}
+nav a {color:white;margin:0 10px;text-decoration:none;font-weight:bold}
+.container {display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:20px}
+.card {background:white;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,0.1);padding:15px;text-align:center;transition:0.2s}
+.card:hover {transform:scale(1.05)}
+.card img {width:100%;border-radius:10px}
+.price {color:#8b5e3c;font-size:18px;margin:10px 0}
+button {background:#e76f51;border:none;padding:10px 15px;color:white;border-radius:8px;cursor:pointer}
+button:hover {background:#d65a3f}
+#cart {position:fixed;top:10px;right:10px;background:white;padding:15px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.2);width:250px}
+#cart h3 {margin-top:0}
+#cart ul {list-style:none;padding:0}
+#cart li {margin:5px 0}
+#whatsapp {position:fixed;bottom:20px;right:20px;background:#25D366;color:white;border-radius:50%;width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:30px;text-decoration:none}
+footer {text-align:center;padding:20px;background:#8b5e3c;color:white;margin-top:20px}
+</style>
+</head>
+<body>
+<header>
+<h1>🍯 Sabores do Oriente</h1>
+<p>Doces árabes tradicionais</p>
+</header>
+<nav>
+<a href="#">Início</a>
+<a href="#">Produtos</a>
+</nav>
+
+<div id="cart">
+<h3>🛒 Carrinho</h3>
+<ul id="cart-items"></ul>
+<p><strong>Total: R$ <span id="total">0</span></strong></p>
+<button onclick="checkout()">Finalizar</button>
+</div>
+
+<section class="container">
+
+<div class="card">
+<img src="https://i.imgur.com/3ZQ3Z4R.jpg">
+<h3>Baklava</h3>
+<p>Com nozes e mel</p>
+<div class="price">25</div>
+<button onclick="add('Baklava',25)">Adicionar</button>
+</div>
+
+<div class="card">
+<img src="https://i.imgur.com/Ws6XKQH.jpg">
+<h3>Maamoul</h3>
+<p>Recheio de tâmaras</p>
+<div class="price">18</div>
+<button onclick="add('Maamoul',18)">Adicionar</button>
+</div>
+
+<div class="card">
+<img src="https://i.imgur.com/QZ6F6vG.jpg">
+<h3>Halawa</h3>
+<p>Doce de gergelim</p>
+<div class="price">20</div>
+<button onclick="add('Halawa',20)">Adicionar</button>
+</div>
+
+<div class="card">
+<img src="https://i.imgur.com/6XKQH.jpg">
+<h3>Knafeh</h3>
+<p>Queijo com calda doce</p>
+<div class="price">30</div>
+<button onclick="add('Knafeh',30)">Adicionar</button>
+</div>
+
+</section>
+
+<a id="whatsapp" href="https://wa.me/5511999999999" target="_blank">💬</a>
+
+<footer>
+<p>Pagamentos: PIX | Cartão | Dinheiro</p>
+</footer>
+
+<script>
+let cart=[];
+
+function add(name,price){
+cart.push({name,price});
+render();
+}
+
+function render(){
+let list=document.getElementById('cart-items');
+list.innerHTML='';
+let total=0;
+cart.forEach(item=>{
+let li=document.createElement('li');
+li.textContent=item.name+" - R$"+item.price;
+list.appendChild(li);
+ total+=item.price;
+});
+document.getElementById('total').textContent=total;
+}
+
+function checkout(){
+let msg='Pedido:%0A';
+cart.forEach(i=> msg+=i.name+'%0A');
+msg+='Total: R$'+document.getElementById('total').textContent;
+window.open('https://wa.me/5511999999999?text='+msg);
+}
+</script>
+
+</body>
+</html>
